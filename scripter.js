@@ -16,6 +16,7 @@ var Gameboard = (function() {
     let inpit = document.getElementsByClassName("inpit")[0]
     let inpiter = document.getElementsByClassName("inpit")[1]
     let reet = 0;
+    let fly = true;
     return {
         siv: function(){
             if(inpit.value != undefined) {
@@ -108,6 +109,7 @@ var Gameboard = (function() {
             Gameboard.win()        
         },
         reset: function(){
+            fly = false;
             arr = ["", "", "", "", "", "", "", "", ""]
             for(let i = 0; i < arr.length; i++) {
                 box = document.getElementsByClassName('box')[i]
@@ -120,6 +122,7 @@ var Gameboard = (function() {
             trace = 0;
         },
         reset2: function(){
+            fly = false;
             popup.classList.remove("popup-open")
             popup.classList.add("popup")
             arr = ["", "", "", "", "", "", "", "", ""]
@@ -141,6 +144,7 @@ var Gameboard = (function() {
             }
         },
         addO: function(t){
+            fly = true;
             if(arr[t] != "O" && arr[t] != "X") {
                 arr.splice(t, 1,"O")
                 Gameboard.insert()
@@ -164,14 +168,14 @@ var Gameboard = (function() {
                 small.innerHTML = "Turn";
                 Gameboard.addO(t);
                 Gameboard.win()
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
                 if(false == (arr[0] != "" && arr[1] != "" && arr[2] != "" && arr[3] != "" && arr[4] != "" && arr[5] != "" && arr[6] != "" && arr[7] != "" && arr[8] != "" )) {
                     for(let i = 0; i < arr.length; i++) {
                         let box = document.getElementsByClassName('box')[i]
                         box.setAttribute("onclick", "");
                     }
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    if(xl <= 0 && reet <= 0)
-                    {
+                    if(xl <= 0 && reet <= 0 && fly == true) {
                         Gameboard.addAI()
                     }
                     for(let i = 0; i < arr.length; i++) {
@@ -184,5 +188,3 @@ var Gameboard = (function() {
     }
 }
 )();
-
-

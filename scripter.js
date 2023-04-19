@@ -15,7 +15,7 @@ var Gameboard = (function() {
     let player2 = document.getElementsByClassName("popup2")[0]
     let inpit = document.getElementsByClassName("inpit")[0]
     let inpiter = document.getElementsByClassName("inpit")[1]
-
+    let reet = 0;
     return {
         siv: function(){
             if(inpit.value != undefined) {
@@ -82,6 +82,7 @@ var Gameboard = (function() {
             }
         },
         statement: function(r){
+            reet++;
             if(xl>0){
                 words.innerHTML = "Congratulations, " + playernames[0] + "!";
             }
@@ -131,6 +132,7 @@ var Gameboard = (function() {
             small.innerHTML = "Goes First";
             Gameboard.insert()
             trace = 0;
+            reet = 0;
         },
         addX: function(ran){
             if(arr[ran] != "O" && arr[ran] != "X") {
@@ -168,7 +170,7 @@ var Gameboard = (function() {
                         box.setAttribute("onclick", "");
                     }
                     await new Promise(resolve => setTimeout(resolve, 1500));
-                    if(words.innerHTML != ("Congratulations, " + playernames[0] + "!"))
+                    if(xl <= 0 && reet <= 0)
                     {
                         Gameboard.addAI()
                     }
